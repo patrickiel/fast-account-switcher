@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.34916.146
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "FastAccountSwitcher.Setup", "FastAccountSwitcher.Setup\FastAccountSwitcher.Setup.vdproj", "{9864BC71-8009-4CD8-B7BF-83447AC5AC43}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastAccountSwitcher.CLI", "FastAccountSwitcher.CLI\FastAccountSwitcher.CLI.csproj", "{380201A2-1224-4038-B1EF-CF5B40B10A32}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastAccountSwitcher.GUI", "FastAccountSwitcher.GUI\FastAccountSwitcher.GUI.csproj", "{164ABC4E-EC98-44CF-B39E-87747D3FCAC3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9864BC71-8009-4CD8-B7BF-83447AC5AC43}.Debug|Any CPU.ActiveCfg = Debug
+		{9864BC71-8009-4CD8-B7BF-83447AC5AC43}.Release|Any CPU.ActiveCfg = Release
+		{9864BC71-8009-4CD8-B7BF-83447AC5AC43}.Release|Any CPU.Build.0 = Release
+		{380201A2-1224-4038-B1EF-CF5B40B10A32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{380201A2-1224-4038-B1EF-CF5B40B10A32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{380201A2-1224-4038-B1EF-CF5B40B10A32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{380201A2-1224-4038-B1EF-CF5B40B10A32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{164ABC4E-EC98-44CF-B39E-87747D3FCAC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{164ABC4E-EC98-44CF-B39E-87747D3FCAC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{164ABC4E-EC98-44CF-B39E-87747D3FCAC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{164ABC4E-EC98-44CF-B39E-87747D3FCAC3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0F71AAFA-D2AF-4F9C-9D20-C69E76528594}
+	EndGlobalSection
+EndGlobal
