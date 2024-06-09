@@ -74,7 +74,7 @@ public partial class MainViewModel : ObservableObject
 
         ToolTip = lastSwitchedAccount is null
             ? "Fast Account Switcher"
-            : $"Left click switches to '{lastSwitchedAccount.UserName}'";
+            : $"Click the left mouse button to switch to {lastSwitchedAccount.UserName}";
     }
 
     public ObservableCollection<AccountViewModel> Accounts { get; private set; } = [];
