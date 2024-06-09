@@ -17,7 +17,8 @@ public partial class AccountViewModel(Account account, AccountService accountSer
     {
         if (!account.IsLoggedIn)
         {
-
+            WorkstationHelper.Lock();
+            return;
         }
 
         string? password = passwordService.GetPassword(UserName);
@@ -34,11 +35,11 @@ public partial class AccountViewModel(Account account, AccountService accountSer
                 inputWindow.Close();
                 Switch(rembemberPassword, password);
             };
+
+            return;
         }
-        else
-        {
-            Switch(false, password);
-        }
+
+        Switch(false, password);
     }
 
     private void Switch(bool rembemberPassword, string password)
@@ -60,9 +61,9 @@ public partial class AccountViewModel(Account account, AccountService accountSer
             passwordService.DeletePassword(UserName);
             _ = new Wpf.Ui.Controls.MessageBox()
             {
-                Content = "Failed to switch model, is the password correct?\nPlease try again!",
-                Title = "Error",
-                CloseButtonText = "Ok"
+                Content = "Failed to switch account!\nPlease try again and make sure the password is correct.",
+                Title = "Failed to switch account!",
+                CloseButtonText = "Ok",
             }.ShowDialogAsync();
         }
     }

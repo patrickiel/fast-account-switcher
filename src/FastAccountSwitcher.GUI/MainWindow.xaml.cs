@@ -46,7 +46,9 @@ public partial class MainWindow : Window, IDisposable
 
     private TaskbarIcon? GetIcon()
     {
-        return FindName("mainGrid") is Grid grid ? grid.FindName("taskbarIcon") as TaskbarIcon : null;
+        return FindName("mainGrid") is Grid grid
+            ? grid.FindName("taskbarIcon") as TaskbarIcon
+            : null;
     }
 
     protected override void OnClosing(CancelEventArgs e)

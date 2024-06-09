@@ -32,7 +32,7 @@
                       Margin="0 10 0 10"
                       IsChecked="{Binding RembemberPassword, Mode=TwoWay}" />
             <TextBlock Text="* Password will be stored in plain text under the user's profile"
-                       FontSize="10"
+                       FontSize="11"
                        Margin="0 10 0 10"
                        Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
             <StackPanel Orientation="Horizontal"

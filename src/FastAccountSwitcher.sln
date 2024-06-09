@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.34916.146
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "FastAccountSwitcher.Setup", "FastAccountSwitcher.Setup\FastAccountSwitcher.Setup.vdproj", "{9864BC71-8009-4CD8-B7BF-83447AC5AC43}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastAccountSwitcher.GUI", "FastAccountSwitcher.GUI\FastAccountSwitcher.GUI.csproj", "{164ABC4E-EC98-44CF-B39E-87747D3FCAC3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastAccountSwitcher.CLI", "FastAccountSwitcher.CLI\FastAccountSwitcher.CLI.csproj", "{380201A2-1224-4038-B1EF-CF5B40B10A32}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastAccountSwitcher.GUI", "FastAccountSwitcher.GUI\FastAccountSwitcher.GUI.csproj", "{164ABC4E-EC98-44CF-B39E-87747D3FCAC3}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "FastAccountSwitcher.Setup", "FastAccountSwitcher.Setup\FastAccountSwitcher.Setup.vdproj", "{9864BC71-8009-4CD8-B7BF-83447AC5AC43}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

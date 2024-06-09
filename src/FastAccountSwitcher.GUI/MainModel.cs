@@ -1,6 +1,4 @@
-﻿using System.Linq;
-
-namespace FastAccountSwitcher.GUI;
+﻿namespace FastAccountSwitcher.GUI;
 
 public class MainModel
 {
