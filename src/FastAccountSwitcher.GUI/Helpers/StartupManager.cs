@@ -12,17 +12,16 @@ public class StartupManager
 
     public StartupManager()
     {
-        RemoveFromStartupIfExists();
-        AddToStartup();
+        if (!IsRunningAtStartup())
+        {
+            AddToStartup();
+        }
     }
 
-    public static void RemoveFromStartupIfExists()
+    public static bool IsRunningAtStartup()
     {
         using TaskService ts = new();
-        if (ts.FindTask(TaskName) is Task task)
-        {
-            ts.RootFolder.DeleteTask(TaskName);
-        }
+        return ts.FindTask(TaskName) is not null;
     }
 
     public static void AddToStartup()

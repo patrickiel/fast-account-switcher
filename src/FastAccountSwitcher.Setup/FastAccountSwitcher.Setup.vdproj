@@ -21,6 +21,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_97F7284BFD9B4D44B19183FE26B3288C"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_98E7DE25EDCC4D0B97DD2F924EBDD3E3"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -102,6 +108,20 @@
     {
         "CustomAction"
         {
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_67C848721DD741668039A29AE963885A"
+            {
+            "Name" = "8:delete_scheduled_task.vbs"
+            "Condition" = "8:"
+            "Object" = "8:_97F7284BFD9B4D44B19183FE26B3288C"
+            "FileType" = "3:4"
+            "InstallAction" = "3:4"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_F324AEC8_665B_494D_90F9_990CAFC28EEC"
+            "InstallerClass" = "11:FALSE"
+            "CustomActionData" = "8:"
+            }
         }
         "DefaultFeature"
         {
@@ -131,6 +151,26 @@
             {
             "SourcePath" = "8:..\\FastAccountSwitcher.GUI\\Resources\\icon.ico"
             "TargetName" = "8:icon.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_7A548B1012F942719F6DA31A9A1F221F"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_97F7284BFD9B4D44B19183FE26B3288C"
+            {
+            "SourcePath" = "8:delete_scheduled_task.vbs"
+            "TargetName" = "8:delete_scheduled_task.vbs"
             "Tag" = "8:"
             "Folder" = "8:_7A548B1012F942719F6DA31A9A1F221F"
             "Condition" = "8:"
