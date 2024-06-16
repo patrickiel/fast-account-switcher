@@ -30,14 +30,10 @@
             <ui:PasswordBox FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
                             Password="{Binding InputText, Mode=OneWayToSource}"
                             TabIndex="1" />
-            <CheckBox Content="Remember password*"
+            <CheckBox Content="Remember password"
                       Margin="0 10 0 10"
                       TabIndex="2"
                       IsChecked="{Binding RembemberPassword, Mode=TwoWay}" />
-            <TextBlock Text="* Password will be stored in plain text under the user's profile"
-                       FontSize="11"
-                       Margin="0 10 0 10"
-                       Foreground="{DynamicResource TextFillColorSecondaryBrush}" />
             <StackPanel Orientation="Horizontal"
                         Margin="0, 30,0,0"
                         HorizontalAlignment="Right">
