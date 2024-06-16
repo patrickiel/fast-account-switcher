@@ -1,4 +1,6 @@
 ﻿using System.DirectoryServices.AccountManagement;
+using System.Runtime.InteropServices;
+using System.Security;
 
 namespace FastAccountSwitcher;
 
@@ -95,39 +97,61 @@ public class AccountService
         return accounts;
     }
 
-    public void SwitchAccount(string id, string password)
+    public void SwitchAccount(string id, SecureString password)
     {
         if (!new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
         {
             throw new InvalidOperationException("You must run this program as an administrator to switch accounts.");
         }
 
-        Process process = new()
+        IntPtr passwordPtr = IntPtr.Zero;
+        string insecurePassword = string.Empty;
+
+        try
         {
-            StartInfo = new()
+            passwordPtr = Marshal.SecureStringToGlobalAllocUnicode(password);
+            insecurePassword = Marshal.PtrToStringUni(passwordPtr);
+
+            Process process = new()
             {
-                FileName = "tscon",
-                Arguments = $"{id} /password:{password}",
-                RedirectStandardOutput = true,
-                RedirectStandardError = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
+                StartInfo = new()
+                {
+                    FileName = "tscon",
+                    Arguments = $"{id} /password:{insecurePassword}",
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                }
+            };
+
+            process.Start();
+
+            // Read the standard output of the spawned process.
+            string output = process.StandardOutput.ReadToEnd();
+            string error = process.StandardError.ReadToEnd();
+
+            // Wait for the process to exit.
+            process.WaitForExit();
+
+            // Check the exit code.
+            if (process.ExitCode != 0)
+            {
+                throw new Exception($"tscon failed with exit code {process.ExitCode}: {error}");
             }
-        };
-
-        process.Start();
-
-        // Read the standard output of the spawned process.
-        string output = process.StandardOutput.ReadToEnd();
-        string error = process.StandardError.ReadToEnd();
-
-        // Wait for the process to exit.
-        process.WaitForExit();
-
-        // Check the exit code.
-        if (process.ExitCode != 0)
+        }
+        finally
         {
-            throw new Exception($"tscon failed with exit code {process.ExitCode}: {error}");
+            if (passwordPtr != IntPtr.Zero)
+            {
+                Marshal.ZeroFreeGlobalAllocUnicode(passwordPtr);
+            }
+
+            // Clear the insecure password string from memory
+            if (insecurePassword?.Length > 0)
+            {
+                insecurePassword = new string('\0', insecurePassword.Length);
+            }
         }
     }
 }

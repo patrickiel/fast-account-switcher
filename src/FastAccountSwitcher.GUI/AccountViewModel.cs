@@ -1,4 +1,7 @@
-﻿namespace FastAccountSwitcher.GUI;
+﻿using System;
+using System.Security;
+
+namespace FastAccountSwitcher.GUI;
 
 public partial class AccountViewModel(Account account, AccountService accountService, PasswordService passwordService)
 {
@@ -17,23 +20,31 @@ public partial class AccountViewModel(Account account, AccountService accountSer
     {
         if (!account.IsLoggedIn)
         {
+            Properties.Settings.Default.LastSwitchedUsername = UserName;
+            Properties.Settings.Default.Save();
+
             WorkstationHelper.Lock();
             return;
         }
 
-        string? password = passwordService.GetPassword(UserName);
+        SecureString? password = passwordService.GetPassword(UserName);
 
         if (password is null)
         {
             var inputWindow = new InputWindow();
             inputWindow.Show();
 
-            inputWindow.ViewModel.OkAction = (bool rembemberPassword, string inputText) =>
+            inputWindow.ViewModel.OkAction = (bool rememberPassword, string inputText) =>
             {
-                password = inputText;
+                var securePassword = new SecureString();
+                foreach (char c in inputText)
+                {
+                    securePassword.AppendChar(c);
+                }
+                securePassword.MakeReadOnly();
 
                 inputWindow.Close();
-                Switch(rembemberPassword, password);
+                Switch(rememberPassword, securePassword);
             };
 
             return;
@@ -42,13 +53,13 @@ public partial class AccountViewModel(Account account, AccountService accountSer
         Switch(false, password);
     }
 
-    private void Switch(bool rembemberPassword, string password)
+    private void Switch(bool rememberPassword, SecureString password)
     {
         try
         {
             accountService.SwitchAccount(Id, password);
 
-            if (rembemberPassword)
+            if (rememberPassword)
             {
                 passwordService.SetPassword(UserName, password);
             }

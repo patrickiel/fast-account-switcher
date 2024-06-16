@@ -1,4 +1,6 @@
-﻿namespace FastAccountSwitcher.CLI;
+﻿using System.Security;
+
+namespace FastAccountSwitcher.CLI;
 
 internal class Program
 {
@@ -41,20 +43,35 @@ internal class Program
 
                 if (password == null)
                 {
-                    string? passwordInput = null;
-                    while (string.IsNullOrEmpty(passwordInput))
+                    password = new SecureString();
+                    Console.Write("Password: ");
+                    while (true)
                     {
-                        Console.Write($"Password: ");
-                        passwordInput = Console.ReadLine();
+                        var key = Console.ReadKey(intercept: true);
+                        if (key.Key == ConsoleKey.Enter) break;
+
+                        if (key.Key == ConsoleKey.Backspace)
+                        {
+                            if (password.Length > 0)
+                            {
+                                password.RemoveAt(password.Length - 1);
+                                Console.Write("\b \b");
+                            }
+                        }
+                        else
+                        {
+                            password.AppendChar(key.KeyChar);
+                            Console.Write("*");
+                        }
                     }
-
-                    password = passwordInput;
-
+                    password.MakeReadOnly();
+                    Console.WriteLine();
 
                     while (rememberPassword.Key != ConsoleKey.Y && rememberPassword.Key != ConsoleKey.N)
                     {
-                        Console.Write($"Remember password (Please be aware of the security risk)? (Y/n): ");
+                        Console.Write("Remember password? (Y/n): ");
                         rememberPassword = Console.ReadKey();
+                        Console.WriteLine();
                     }
                 }
 
