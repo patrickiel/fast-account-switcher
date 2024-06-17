@@ -33,6 +33,7 @@ public partial class AccountViewModel(Account account, AccountService accountSer
         {
             var inputWindow = new InputWindow();
             inputWindow.Show();
+            inputWindow.ViewModel.AccountName = UserName;
 
             inputWindow.ViewModel.OkAction = (bool rememberPassword, string inputText) =>
             {

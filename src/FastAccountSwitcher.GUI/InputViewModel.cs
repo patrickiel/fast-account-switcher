@@ -6,7 +6,13 @@ public partial class InputViewModel : ObservableObject
     private string inputText = "";
 
     [ObservableProperty]
-    private bool rembemberPassword = false;
+    private bool rembemberPassword = true;
+
+    [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(Description))]
+    private string accountName = "";
+
+    public string Description => $"Enter the password for '{AccountName}'";
 
     public Action<bool, string> OkAction { get; internal set; } = (_, _) => { };
 

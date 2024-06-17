@@ -11,8 +11,10 @@
                  Icon="Resources/icon_128.png"
                  Topmost="True"
                  ResizeMode="NoResize"
-                 SizeToContent="Height"
+                 SizeToContent="Height"                 
                  WindowStyle="None"
+                 MinHeight="200"
+                 WindowStartupLocation="CenterScreen"
                  Width="360">
     <Window.DataContext>
         <local:InputViewModel />
@@ -20,25 +22,25 @@
 
     <StackPanel>
         <ui:TitleBar  Grid.Row="0"
-                      Title="Credentials" />
+                      Title="Login" />
 
         <StackPanel Margin="15">
 
-            <TextBlock Text="Enter the password:"
-                       Margin="0 30 0 10"
-                       Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
+            <Label Content="{Binding Description}"
+                   Margin="0 20 0 10"
+                   Foreground="{DynamicResource TextFillColorPrimaryBrush}" />
             <ui:PasswordBox FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
                             Password="{Binding InputText, Mode=OneWayToSource}"
                             TabIndex="1" />
-            <CheckBox Content="Remember password"
+            <CheckBox Content="Remember the password"
                       Margin="0 10 0 10"
                       TabIndex="2"
                       IsChecked="{Binding RembemberPassword, Mode=TwoWay}" />
             <StackPanel Orientation="Horizontal"
-                        Margin="0, 30,0,0"
+                        Margin="0, 10,0,0"
                         HorizontalAlignment="Right">
                 <ui:Button DockPanel.Dock="Right"
-                           Margin="0 0 20 0"
+                           Margin="0 0 10 0"
                            MinWidth="90"
                            Content="Cancel"
                            TabIndex="3"
