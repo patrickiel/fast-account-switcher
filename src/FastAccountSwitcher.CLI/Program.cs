@@ -1,95 +1,106 @@
 ﻿using System.Security;
 
+using FastAccountSwitcher.CLI.Services;
+
 namespace FastAccountSwitcher.CLI;
 
 internal class Program
 {
     static void Main(string[] args)
     {
-        if (!IsAdmin())
+        try
         {
-            Console.WriteLine("Please run this program as an administrator.");
-            return;
-        }
+            if (!IsAdmin())
+            {
+                Console.WriteLine("Please run this program as an administrator.");
+                return;
+            }
 
-        var action = args.Length > 0 ? args[0] : null;
+            var action = args.Length > 0 ? args[0] : null;
 
-        if (action == null)
-        {
-            Console.WriteLine("Usage: FastAccountSwitcher.CLI <action>");
-            Console.WriteLine("  Actions:");
-            Console.WriteLine("    getAccounts");
-            Console.WriteLine("    switch <username>");
-            return;
-        }
+            if (action == null)
+            {
+                Console.WriteLine("Usage: FastAccountSwitcher.CLI <action>");
+                Console.WriteLine("  Actions:");
+                Console.WriteLine("    getAccounts");
+                Console.WriteLine("    switch <username>");
+                return;
+            }
 
-        var accountService = new AccountService();
-        var passwordService = new PasswordService();
+            var accountService = new AccountService();
+            var passwordService = new PasswordService();
 
-        switch (action)
-        {
-            case "getAccounts":
-                var accounts = AccountService.GetAccounts();
-                foreach (var account in accounts)
-                {
-                    Console.WriteLine($"{account.UserName} ({account.Id}) - {account.State}");
-                }
-                break;
-
-            case "switch":
-                var username = args[1];
-                var password = passwordService.GetPassword(username);
-                ConsoleKeyInfo rememberPassword = default;
-
-                if (password == null)
-                {
-                    password = new SecureString();
-                    Console.Write("Password: ");
-                    while (true)
+            switch (action)
+            {
+                case "getAccounts":
+                    var accounts = AccountService.GetAccounts();
+                    foreach (var account in accounts)
                     {
-                        var key = Console.ReadKey(intercept: true);
-                        if (key.Key == ConsoleKey.Enter) break;
+                        Console.WriteLine($"{account.UserName} ({account.Id}) - {account.State}");
+                    }
+                    break;
 
-                        if (key.Key == ConsoleKey.Backspace)
+                case "switch":
+                    var username = args[1];
+                    var password = passwordService.GetPassword(username);
+                    ConsoleKeyInfo rememberPassword = default;
+
+                    if (password == null)
+                    {
+                        password = new SecureString();
+                        Console.Write("Password: ");
+                        while (true)
                         {
-                            if (password.Length > 0)
+                            var key = Console.ReadKey(intercept: true);
+                            if (key.Key == ConsoleKey.Enter) break;
+
+                            if (key.Key == ConsoleKey.Backspace)
                             {
-                                password.RemoveAt(password.Length - 1);
-                                Console.Write("\b \b");
+                                if (password.Length > 0)
+                                {
+                                    password.RemoveAt(password.Length - 1);
+                                    Console.Write("\b \b");
+                                }
+                            }
+                            else
+                            {
+                                password.AppendChar(key.KeyChar);
+                                Console.Write("*");
                             }
                         }
-                        else
+                        password.MakeReadOnly();
+                        Console.WriteLine();
+
+                        while (rememberPassword.Key != ConsoleKey.Y && rememberPassword.Key != ConsoleKey.N)
                         {
-                            password.AppendChar(key.KeyChar);
-                            Console.Write("*");
+                            Console.Write("Remember password? (Y/n): ");
+                            rememberPassword = Console.ReadKey();
+                            Console.WriteLine();
                         }
                     }
-                    password.MakeReadOnly();
-                    Console.WriteLine();
 
-                    while (rememberPassword.Key != ConsoleKey.Y && rememberPassword.Key != ConsoleKey.N)
+                    var id = AccountService.GetAccounts().FirstOrDefault(a => a.UserName.Equals(username, StringComparison.OrdinalIgnoreCase))?.Id
+                        ?? throw new InvalidOperationException($"Account not found: {username}");
+
+                    accountService.SwitchAccount(id, password);
+
+                    if (rememberPassword.Key == ConsoleKey.Y)
                     {
-                        Console.Write("Remember password? (Y/n): ");
-                        rememberPassword = Console.ReadKey();
-                        Console.WriteLine();
+                        passwordService.SetPassword(username, password);
                     }
-                }
 
-                var id = AccountService.GetAccounts().FirstOrDefault(a => a.UserName.Equals(username, StringComparison.OrdinalIgnoreCase))?.Id
-                    ?? throw new InvalidOperationException($"Account not found: {username}");
+                    break;
 
-                accountService.SwitchAccount(id, password);
+                default:
+                    Console.WriteLine($"Unknown action: {action}");
+                    break;
+            }
 
-                if (rememberPassword.Key == ConsoleKey.Y)
-                {
-                    passwordService.SetPassword(username, password);
-                }
-
-                break;
-
-            default:
-                Console.WriteLine($"Unknown action: {action}");
-                break;
+        }
+        catch (Exception ex)
+        {
+            LoggingService.LogException(ex);
+            Console.WriteLine(ex.Message);
         }
     }
 
