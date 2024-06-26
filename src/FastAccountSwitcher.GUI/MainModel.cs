@@ -2,14 +2,12 @@
 
 public class MainModel
 {
-    private readonly AccountService accountService = new();
-
     public MainModel()
     {
         AllowOnlyOneInstancePerUser();
     }
 
-    public IReadOnlyList<Account> Accounts => AccountService.GetAccounts();
+    public static IReadOnlyList<Account> Accounts => AccountService.GetAccounts();
 
     public StartupManager StartupManager { get; } = new StartupManager();
 

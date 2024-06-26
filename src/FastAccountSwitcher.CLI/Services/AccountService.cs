@@ -19,7 +19,6 @@ public class AccountService
             .Select(username => new Account(username, "", "", "", "", "", false))
             .ToList();
 
-
         return [.. loggedInAccounts, .. notLoggedInAccounts];
     }
 

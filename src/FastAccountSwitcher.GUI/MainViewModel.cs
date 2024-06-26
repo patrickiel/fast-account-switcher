@@ -17,7 +17,7 @@ public partial class MainViewModel : ObservableObject
         passwordService = new PasswordService();
         Accounts.CollectionChanged += (sender, e) => BuildMenu();
 
-        var accounts = model.Accounts.Select(account => new AccountViewModel(account, accountService, passwordService));
+        var accounts = MainModel.Accounts.Select(account => new AccountViewModel(account, accountService, passwordService));
 
         foreach (var account in accounts)
         {
@@ -70,11 +70,11 @@ public partial class MainViewModel : ObservableObject
 
     private void SetTooltip()
     {
-        var lastSwitchedAccount = GetLastSwitchedAccount();
+        var ultraFastSwitchAccount = GetUltraFastSwitchAccount();
 
-        ToolTip = lastSwitchedAccount is null
+        ToolTip = ultraFastSwitchAccount is null
             ? "Fast Account Switcher"
-            : $"Click the left mouse button to switch to {lastSwitchedAccount.UserName}";
+            : $"Click the left mouse button to switch to {ultraFastSwitchAccount.UserName}";
     }
 
     public ObservableCollection<AccountViewModel> Accounts { get; private set; } = [];
@@ -83,7 +83,7 @@ public partial class MainViewModel : ObservableObject
     {
         Accounts.Clear();
 
-        foreach (var account in model.Accounts)
+        foreach (var account in MainModel.Accounts)
         {
             Accounts.Add(new AccountViewModel(account, accountService, passwordService));
         }
@@ -91,11 +91,16 @@ public partial class MainViewModel : ObservableObject
 
     public void UltraFastSwitch()
     {
-        GetLastSwitchedAccount()?.SwitchAccount();
+        GetUltraFastSwitchAccount()?.SwitchAccount();
     }
 
-    private AccountViewModel? GetLastSwitchedAccount()
+    private AccountViewModel? GetUltraFastSwitchAccount()
     {
+        if (Accounts.Count == 1 && Accounts[0].CanExecuteSwitchAccount)
+        {
+            return Accounts[0];
+        }
+
         var lastSwitchedUsername = Settings.Default.LastSwitchedUsername;
         if (string.IsNullOrEmpty(lastSwitchedUsername))
         {
