@@ -5,11 +5,10 @@ public class MainModel
     public MainModel()
     {
         AllowOnlyOneInstancePerUser();
+        StartupManager.AddToStartup();
     }
 
     public static IReadOnlyList<Account> Accounts => AccountService.GetAccounts();
-
-    public StartupManager StartupManager { get; } = new StartupManager();
 
     private static void AllowOnlyOneInstancePerUser()
     {
