@@ -2,6 +2,8 @@
 
 **Fast Account Switcher** is a Windows application that allows you to switch accounts with a single click. This utility is designed to provide a seamless and efficient way to manage multiple accounts on your computer, making it easier and faster to switch between them.
 
+![Demo](/media/demo.gif)
+
 ## Installation
 
 1. Download the latest release from the [releases page](https://github.com/yourusername/FastAccountSwitcher/releases).
