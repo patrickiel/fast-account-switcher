@@ -6,7 +6,7 @@
 
 ## Installation
 
-1. Download the latest release from the [releases page](https://github.com/yourusername/FastAccountSwitcher/releases).
+1. Download the latest release from the [releases page](https://github.com/patrickiel/fast-account-switcher/releases).
 2. Run the installer and follow the on-screen instructions.
 3. Once installed, you need to start the application manually for the first time. It will then be configured to start automatically at every system start.
 
@@ -21,4 +21,4 @@
 
 ## Contact
 
-For any questions or suggestions, please open an issue on the [GitHub repository](https://github.com/patrickiel/FastAccountSwitcher/issues).
+For any questions or suggestions, please open an issue on the [GitHub repository](https://github.com/patrickiel/fast-account-switcher/issues).
