@@ -24,13 +24,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
 		<PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="1.1.0" />
 		<PackageReference Include="System.DirectoryServices" Version="8.0.0" />
 		<PackageReference Include="System.DirectoryServices.AccountManagement" Version="8.0.0" />
 		<PackageReference Include="System.Management" Version="8.0.0" />
 		<PackageReference Include="TaskScheduler" Version="2.11.0" />
-		<PackageReference Include="WPF-UI" Version="3.0.4" />
+		<PackageReference Include="WPF-UI" Version="3.0.5" />
 	</ItemGroup>
 
 	<ItemGroup>

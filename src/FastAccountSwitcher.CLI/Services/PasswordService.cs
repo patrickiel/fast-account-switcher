@@ -1,4 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿using FastAccountSwitcher.CLI.Services;
+using System;
+using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text.Json;
@@ -27,7 +29,20 @@ public class PasswordService
         List<Credential> credentials = ReadCredentials();
         var credential = credentials.FirstOrDefault(c => c.UserName.Equals(userName, StringComparison.OrdinalIgnoreCase));
 
-        return credential == null ? null : UnprotectPassword(credential.ProtectedPassword);
+        if(credential is null)
+        {
+            return null;
+        }
+
+        try
+        {
+            return UnprotectPassword(credential.ProtectedPassword);
+        }
+        catch (Exception ex)
+        {
+            LoggingService.LogException(ex);
+            return null;
+        }
     }
 
     public void SetPassword(string userName, SecureString password)
