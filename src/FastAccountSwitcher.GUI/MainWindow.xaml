@@ -26,7 +26,6 @@
 
         <tb:TaskbarIcon x:Name="taskbarIcon"
                         Grid.Row="0"
-                        ToolTipText="{Binding ToolTip}"
                         MenuActivation="RightClick"
                         TrayLeftMouseUp="TaskbarIcon_TrayLeftMouseUp"
                         TrayRightMouseDown="TaskbarIcon_TrayRightMouseDown">

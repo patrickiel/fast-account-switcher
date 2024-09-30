@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 using Hardcodet.Wpf.TaskbarNotification;
 
@@ -83,7 +84,6 @@ public partial class MainWindow : Window, IDisposable
             viewModel.RefreshAccounts();
         }
     }
-
     public void Dispose()
     {
         SystemEvents.UserPreferenceChanged -= (_, _) => ApplyThemeChanges();

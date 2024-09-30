@@ -64,17 +64,6 @@ public partial class MainViewModel : ObservableObject
                 FontSize = 16
             }
         });
-
-        SetTooltip();
-    }
-
-    private void SetTooltip()
-    {
-        var ultraFastSwitchAccount = GetUltraFastSwitchAccount();
-
-        ToolTip = ultraFastSwitchAccount is null
-            ? "Fast Account Switcher"
-            : $"Click the left mouse button to switch to {ultraFastSwitchAccount.UserName}";
     }
 
     public ObservableCollection<AccountViewModel> Accounts { get; private set; } = [];
@@ -111,9 +100,6 @@ public partial class MainViewModel : ObservableObject
     }
 
     public ObservableCollection<MenuItem> MenuItems { get; } = [];
-
-    [ObservableProperty]
-    private string toolTip = "";
 
     [ObservableProperty]
     private string taskBarIconPath = "";
