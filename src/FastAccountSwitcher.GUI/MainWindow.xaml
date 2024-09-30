@@ -7,13 +7,12 @@
         xmlns:local="clr-namespace:FastAccountSwitcher.GUI"
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         mc:Ignorable="d"
-         ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
+        ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
         ui:Design.Foreground="{DynamicResource TextFillColorPrimaryBrush}"
         WindowStyle="None"
         Icon="Resources/icon_128.png"
         Title="Fast Account Switcher"
         Height="450"
-        Topmost="True"
         Width="400">
     <Window.DataContext>
         <local:MainViewModel />
