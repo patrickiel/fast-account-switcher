@@ -1,5 +1,6 @@
 ﻿using System.Windows.Controls;
 
+using FastAccountSwitcher.CLI.Services;
 using FastAccountSwitcher.GUI.Properties;
 
 namespace FastAccountSwitcher.GUI;
@@ -90,7 +91,32 @@ public partial class MainViewModel : ObservableObject
             return Accounts[0];
         }
 
-        var lastSwitchedUsername = Settings.Default.LastSwitchedUsername;
+        string? lastSwitchedUsername = null;
+        try
+        {
+            lastSwitchedUsername = Settings.Default.LastSwitchedUsername;
+        }
+        catch (Exception ex)
+        {
+            LoggingService.LogException(ex);
+            LoggingService.LogInfo("Resetting settings");
+            Settings.Default.Reset();
+            Settings.Default.Save();
+
+            // probably need to delete "%localappdata%\Fast_Account_Switcher" folder?
+
+            try
+            {
+                lastSwitchedUsername = Settings.Default.LastSwitchedUsername;
+            }
+            catch (Exception ex2)
+            {
+                LoggingService.LogException(ex2);
+                LoggingService.LogInfo("Resetting settings failed");
+                return null;
+            }
+        }
+
         if (string.IsNullOrEmpty(lastSwitchedUsername))
         {
             return null;

@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Windows.Controls;
-using System.Windows.Threading;
 
 using Hardcodet.Wpf.TaskbarNotification;
 
